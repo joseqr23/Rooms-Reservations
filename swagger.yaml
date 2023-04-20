@@ -1,0 +1,524 @@
+swagger: '2.0'
+info:
+  title: Rooms Reservation API
+  description: API for a hotel room reservation system
+  termsOfService: https://www.google.com/policies/terms/
+  contact:
+    email: jquisper2@gmail.com
+  license:
+    name: MIT
+  version: v1
+host: 127.0.0.1:8000
+schemes:
+  - http
+basePath: /api/v1
+consumes:
+  - application/json
+produces:
+  - application/json
+securityDefinitions:
+  Basic:
+    type: basic
+security:
+  - Basic: []
+paths:
+  /client/:
+    get:
+      operationId: client_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Client'
+      tags:
+        - client
+    post:
+      operationId: client_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Client'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Client'
+      tags:
+        - client
+    parameters: []
+  /client/{id}/:
+    get:
+      operationId: client_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Client'
+      tags:
+        - client
+    put:
+      operationId: client_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Client'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Client'
+      tags:
+        - client
+    patch:
+      operationId: client_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Client'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Client'
+      tags:
+        - client
+    delete:
+      operationId: client_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - client
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this client.
+        required: true
+        type: integer
+  /reservation-cancel/{id}/:
+    put:
+      operationId: reservation-cancel_update
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - reservation-cancel
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /reservation-delete/{filter_value}/:
+    delete:
+      operationId: reservation-delete_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - reservation-delete
+    parameters:
+      - name: filter_value
+        in: path
+        required: true
+        type: string
+  /reservation-remove/{id}/:
+    put:
+      operationId: reservation-remove_update
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+      tags:
+        - reservation-remove
+    parameters:
+      - name: id
+        in: path
+        required: true
+        type: string
+  /reservation/:
+    get:
+      operationId: reservation_list
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Reservation'
+      tags:
+        - reservation
+    post:
+      operationId: reservation_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Reservation'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Reservation'
+      tags:
+        - reservation
+    parameters: []
+  /reservation/{filter_type}/{filter_value}/:
+    get:
+      operationId: reservation_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Reservation'
+      tags:
+        - reservation
+    parameters:
+      - name: filter_type
+        in: path
+        required: true
+        type: string
+      - name: filter_value
+        in: path
+        required: true
+        type: string
+  /reservation/{id}/:
+    get:
+      operationId: reservation_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Reservation'
+      tags:
+        - reservation
+    put:
+      operationId: reservation_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Reservation'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Reservation'
+      tags:
+        - reservation
+    patch:
+      operationId: reservation_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Reservation'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Reservation'
+      tags:
+        - reservation
+    delete:
+      operationId: reservation_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - reservation
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this reservation.
+        required: true
+        type: integer
+  /room/:
+    get:
+      operationId: room_list
+      description: ''
+      parameters:
+        - name: search
+          in: query
+          description: A search term.
+          required: false
+          type: string
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Room'
+      tags:
+        - room
+    post:
+      operationId: room_create
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Room'
+      responses:
+        '201':
+          description: ''
+          schema:
+            $ref: '#/definitions/Room'
+      tags:
+        - room
+    parameters: []
+  /room/availability/{status}/:
+    get:
+      operationId: room_availability_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            type: array
+            items:
+              $ref: '#/definitions/Room'
+      tags:
+        - room
+    parameters:
+      - name: status
+        in: path
+        required: true
+        type: string
+  /room/{id}/:
+    get:
+      operationId: room_read
+      description: ''
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Room'
+      tags:
+        - room
+    put:
+      operationId: room_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Room'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Room'
+      tags:
+        - room
+    patch:
+      operationId: room_partial_update
+      description: ''
+      parameters:
+        - name: data
+          in: body
+          required: true
+          schema:
+            $ref: '#/definitions/Room'
+      responses:
+        '200':
+          description: ''
+          schema:
+            $ref: '#/definitions/Room'
+      tags:
+        - room
+    delete:
+      operationId: room_delete
+      description: ''
+      parameters: []
+      responses:
+        '204':
+          description: ''
+      tags:
+        - room
+    parameters:
+      - name: id
+        in: path
+        description: A unique integer value identifying this room.
+        required: true
+        type: integer
+definitions:
+  Client:
+    required:
+      - first_name
+      - last_name
+      - phone
+      - identification_document
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      first_name:
+        title: First name
+        type: string
+        maxLength: 50
+        minLength: 1
+      last_name:
+        title: Last name
+        type: string
+        maxLength: 50
+        minLength: 1
+      email:
+        title: Email
+        type: string
+        maxLength: 25
+        minLength: 1
+        x-nullable: true
+      phone:
+        title: Phone
+        type: string
+        maxLength: 15
+        minLength: 1
+      identification_document:
+        title: Identification document
+        type: string
+        maxLength: 15
+        minLength: 1
+      created_at:
+        title: Created at
+        type: string
+        format: date-time
+        readOnly: true
+      updated_at:
+        title: Updated at
+        type: string
+        format: date-time
+        readOnly: true
+  Room:
+    required:
+      - room_number
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      room_number:
+        title: Room number
+        type: integer
+      room_type:
+        title: Room type
+        type: string
+        maxLength: 30
+        minLength: 1
+        x-nullable: true
+      availability:
+        title: Availability
+        type: boolean
+      description:
+        title: Description
+        type: string
+        maxLength: 100
+        minLength: 1
+        x-nullable: true
+      price_per_day:
+        title: Price per day
+        type: number
+      created_at:
+        title: Created at
+        type: string
+        format: date-time
+        readOnly: true
+      updated_at:
+        title: Updated at
+        type: string
+        format: date-time
+        readOnly: true
+  Reservation:
+    required:
+      - client_id
+      - room_id
+      - status
+      - stay_days
+      - billing_info
+      - amount
+      - pay_method
+    type: object
+    properties:
+      id:
+        title: ID
+        type: integer
+        readOnly: true
+      client_id:
+        title: Client id
+        type: integer
+      room_id:
+        title: Room id
+        type: integer
+      room_details:
+        $ref: '#/definitions/Room'
+      status:
+        title: Status
+        type: string
+        enum:
+          - pending
+          - paid
+          - removed
+      stay_days:
+        title: Stay days
+        type: integer
+      billing_info:
+        title: Billing info
+        type: string
+        maxLength: 100
+        minLength: 1
+      amount:
+        title: Amount
+        type: number
+      pay_method:
+        title: Pay method
+        type: string
+        enum:
+          - credit_card
+          - debit_card
+          - cash
+          - other
