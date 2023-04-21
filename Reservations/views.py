@@ -76,12 +76,19 @@ class ReservationViewSet(viewsets.ModelViewSet):
         
         price_per_day = room.price_per_day
         total = price_per_day * stay_days
-        reservation_data['billing_info'] = f"Client: {client}, ID: {client_id}, Payment made: {amount}, Total to pay: {total}"
 
-        if amount <= total or amount <= 0:
+        if amount <= 0:
+            amount, reservation_data['amount'] = 0, 0
             reservation_data['status'] = 'pending'
-        if amount >= total and amount > 0:
+        
+        elif amount >= total:
+            amount, reservation_data['amount'] = total, total
             reservation_data['status'] = 'paid'
+            
+        elif amount < total:
+            reservation_data['status'] = 'pending'            
+
+        reservation_data['billing_info'] = f"Client: {client}, ID: {client_id}, Payment made: {amount}, Total to pay: {total}"
 
         if not room.availability:
             return Response({"ok": False, "message": "The room is not available"}, status=status.HTTP_400_BAD_REQUEST)
@@ -116,6 +123,7 @@ class ReservationViewSet(viewsets.ModelViewSet):
         price_per_day = room.price_per_day
         total = price_per_day * stay_days
         reservation_data['billing_info'] = f"Client: {client}, ID: {client_id}, Payment made: {amount}, Total to pay: {total}"
+
 
         if amount >= total and reservation_status in ('paid', 'pending'):
             reservation_data['status'] = 'paid'
